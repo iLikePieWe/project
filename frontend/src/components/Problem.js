@@ -12,7 +12,9 @@ import {
   Divider,
   Grid,
   IconButton,
+  MenuItem,
   Paper,
+  Select,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -20,6 +22,8 @@ import React from "react";
 import "codemirror/lib/codemirror.css";
 import "codemirror/mode/xml/xml";
 import "codemirror/mode/clike/clike";
+import "codemirror/mode/javascript/javascript";
+import "codemirror/mode/python/python";
 import "codemirror/mode/css/css";
 import "codemirror/theme/eclipse.css";
 import "codemirror/theme/paraiso-dark.css";
@@ -43,6 +47,7 @@ const Problem = (props) => {
   const [isFetching, setIsFetching] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
   const [output, setOutput] = React.useState();
+  const [language, setLanguage] = React.useState("cpp");
   const [compilerDarkMode, setCompilerDarkMode] = React.useState(
     localStorage.getItem("compilerdarkmode") === "true"
   );
@@ -139,7 +144,12 @@ const Problem = (props) => {
               className="code-editor"
               value={code}
               options={{
-                mode: "text/x-c++src",
+                mode:
+                  language == "cpp"
+                    ? "text/x-c++src"
+                    : language === "js"
+                    ? "text/javascript"
+                    : "text/x-python",
                 theme: compilerDarkMode === true ? "paraiso-dark" : "eclipse",
                 lineNumbers: true,
                 readOnly: false,
@@ -180,6 +190,14 @@ const Problem = (props) => {
                   )}
                 </IconButton>
               </Tooltip>
+              <Select
+                value={language}
+                onChange={(event) => setLanguage(event.target.value)}
+              >
+                <MenuItem value="cpp">C++</MenuItem>
+                <MenuItem value="js">JavaScript</MenuItem>
+                <MenuItem value="python">Python</MenuItem>
+              </Select>
             </Box>
             <Button
               variant="contained"
