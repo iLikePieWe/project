@@ -1,0 +1,15 @@
+.code-editor {
+  width: 100%;
+  height: auto;
+  max-height: 100px;
+}
+.input-box {
+  width: 100%;
+  height: auto;
+  max-height: 100px;
+}
+.output-box {
+  width: 100%;
+  height: auto;
+  max-height: 100px;
+}
